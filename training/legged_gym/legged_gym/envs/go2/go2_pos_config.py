@@ -32,19 +32,19 @@ from legged_gym.envs.base.legged_robot_config import LeggedRobotCfgPPO, LeggedRo
 from legged_gym.envs.base.legged_robot_pos_config import LeggedRobotPosCfg
 import numpy as np
 
-class Go1PosRoughCfg( LeggedRobotPosCfg ):
+class Go2PosRoughCfg( LeggedRobotPosCfg ):
     class env(LeggedRobotPosCfg.env):
         num_observations = 61   # contact_filt 4 + ang_vel 3 + projected_gravity 3 + commands 3 + timer 1 + dof_pos 12 + dof_vel 12 + actions 12 + ray2d 11
         num_envs = 1280
         episode_length_s = 9 # episode length in seconds  # will be randomized in [s-minus, s]
 
     class init_state( LeggedRobotPosCfg.init_state ):
-        pos = [0.0, 0.0, 0.37] # x,y,z [m]
+        pos = [0.0, 0.0, 0.42] # x,y,z [m]
         default_joint_angles = { # = target angles [rad] when action = 0.0
-            'FL_hip_joint': 0.,   # [rad]
-            'RL_hip_joint': 0.,   # [rad]
-            'FR_hip_joint': 0.,  # [rad]
-            'RR_hip_joint': 0.,   # [rad]
+            'FL_hip_joint': 0.1,   # [rad]
+            'RL_hip_joint': 0.1,   # [rad]
+            'FR_hip_joint': -0.1 ,  # [rad]
+            'RR_hip_joint': -0.1,   # [rad]
 
             'FL_thigh_joint': 0.8,     # [rad]
             'RL_thigh_joint': 0.8,   # [rad]
@@ -71,16 +71,16 @@ class Go1PosRoughCfg( LeggedRobotPosCfg ):
     class control( LeggedRobotPosCfg.control ):
         # PD Drive parameters:
         control_type = 'P'
-        stiffness = {'joint': 30.}  # [N*m/rad]
-        damping = {'joint': 0.65}     # [N*m*s/rad]
+        stiffness = {'joint': 20.}  # [N*m/rad]
+        damping = {'joint': 0.5}     # [N*m*s/rad]
         # action scale: target angle = actionScale * action + defaultAngle
         action_scale = 0.25
         # decimation: Number of control action updates @ sim DT per policy DT
         decimation = 4
 
     class asset( LeggedRobotPosCfg.asset ):
-        file = '{LEGGED_GYM_ROOT_DIR}/resources/robots/go1/urdf/go1.urdf'
-        name = "go1"
+        file = '{LEGGED_GYM_ROOT_DIR}/resources/robots/go2/urdf/go2.urdf'
+        name = "go2"
         foot_name = "foot"
         penalize_contacts_on = ["thigh", "calf"] # collision reward
         terminate_after_contacts_on = ["base"] # termination rewrad
@@ -218,27 +218,27 @@ class Go1PosRoughCfg( LeggedRobotPosCfg ):
         soft_torque_limit = 0.85
         max_contact_force = 100.
 
-class Go1PosRoughCfgNoPenalty( Go1PosRoughCfg ):
-    class domain_rand(Go1PosRoughCfg.domain_rand):
+class Go2PosRoughCfgNoPenalty( Go2PosRoughCfg ):
+    class domain_rand(Go2PosRoughCfg.domain_rand):
         init_x_range = [-0.3, 0.3]
         init_y_range = [-0.3, 0.3]
 
-    class rewards( Go1PosRoughCfg.rewards ):
-        class scales( Go1PosRoughCfg.rewards.scales ):
+    class rewards( Go2PosRoughCfg.rewards ):
+        class scales( Go2PosRoughCfg.rewards.scales ):
             collision = 0.0
             feet_collision = 0.0
             termination = 0.0
 
-class Go1PosRoughCfgPPO( LeggedRobotCfgPPO ):
+class Go2PosRoughCfgPPO( LeggedRobotCfgPPO ):
     class algorithm( LeggedRobotCfgPPO.algorithm ):
         entropy_coef = 0.003
     class runner( LeggedRobotCfgPPO.runner ):
         run_name = ''
-        experiment_name = 'go1_pos_rough'
+        experiment_name = 'go2_pos_rough'
 
-class Go1PosRoughCfgPPOLagrangian( LeggedRobotCfgPPOLagrangian ):
+class Go2PosRoughCfgPPOLagrangian( LeggedRobotCfgPPOLagrangian ):
     class algorithm( LeggedRobotCfgPPOLagrangian.algorithm ):
         entropy_coef = 0.003
     class runner( LeggedRobotCfgPPOLagrangian.runner ):
         run_name = ''
-        experiment_name = 'go1_pos_rough_lag'
+        experiment_name = 'go2_pos_rough_lag'

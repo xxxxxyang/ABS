@@ -43,6 +43,8 @@ from .a1.a1_config import A1RoughCfg, A1RoughCfgPPO
 from .go1.go1_config import Go1RoughCfg, Go1RoughCfgPPO, Go1RoughCfgNoPenalty, Go1RoughCfgPPOLagrangian
 from .go1.go1_pos_config import Go1PosRoughCfg, Go1PosRoughCfgPPO, Go1PosRoughCfgNoPenalty, Go1PosRoughCfgPPOLagrangian
 from .go1.go1_rec_config import Go1RecRoughCfg, Go1RecRoughCfgPPO
+from .go2.go2_pos_config import Go2PosRoughCfg, Go2PosRoughCfgPPO, Go2PosRoughCfgNoPenalty, Go2PosRoughCfgPPOLagrangian
+from .go2.go2_rec_config import Go2RecRoughCfg, Go2RecRoughCfgPPO
 
 import os
 
@@ -58,6 +60,8 @@ task_registry.register( "cassie", Cassie, CassieRoughCfg(), CassieRoughCfgPPO() 
 task_registry.register( "go1_rough", LeggedRobot, Go1RoughCfg(), Go1RoughCfgPPO() )
 task_registry.register( "go1_pos_rough", LeggedRobotPos, Go1PosRoughCfg(), Go1PosRoughCfgPPO())
 task_registry.register( "go1_rec_rough", LeggedRobotRec, Go1RecRoughCfg(), Go1RecRoughCfgPPO())
+task_registry.register( "go2_pos_rough", LeggedRobotPos, Go2PosRoughCfg(), Go2PosRoughCfgPPO())
+task_registry.register( "go2_rec_rough", LeggedRobotRec, Go2RecRoughCfg(), Go2RecRoughCfgPPO())
 
 ## PPO Lagrangian
 task_registry.register( "go1_pos_rough_ppo_lagrangian", LeggedRobotPos, Go1PosRoughCfgNoPenalty(), Go1PosRoughCfgPPOLagrangian())
