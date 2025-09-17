@@ -77,6 +77,10 @@ def play(args):
         path = os.path.join(LEGGED_GYM_ROOT_DIR, 'logs', train_cfg.runner.experiment_name, 'exported', 'policies')
         export_policy_as_jit(ppo_runner.alg.actor_critic, path, exported_policy_name)
         print('Exported policy as jit script to: ', os.path.join(path, exported_policy_name))
+        # if in headless mode, exit after export
+        if getattr(args, 'headless', False):
+            print('Headless mode: exiting after export.')
+            return
 
     camera_position = np.array(env_cfg.viewer.pos, dtype=np.float64)
     camera_vel = np.array([1., 1., 0.])

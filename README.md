@@ -83,6 +83,7 @@ Please read through the whole README.md before cloning the repo.
    python scripts/train.py --task=go1_rec_rough --max_iterations=1000
    ```
 
+   For Go2, use `--task=go2_pos_rough` or `--task=go2_rec_rough`.
    
 6. Play the trained policy
 
@@ -90,6 +91,8 @@ Please read through the whole README.md before cloning the repo.
    python scripts/play.py --task=go1_pos_rough
    python scripts/play.py --task=go1_rec_rough
    ```
+
+   When run with the "--headless" flag, the script will exit after exporting the model.
 
 7. Use the testbed, and train/test Reach-Avoid network:
 

@@ -144,7 +144,8 @@ class TaskRegistry():
         else:
             log_dir = os.path.join(log_root, datetime.now().strftime('%m_%d_%H-%M-%S') + '_' + train_cfg.runner.run_name)
         
-        
+        # if args.log_dir is not None:
+        #     log_dir = args.log_dir
         
         train_cfg_dict = class_to_dict(train_cfg)
 
