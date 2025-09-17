@@ -70,7 +70,11 @@ def play(args):
     train_cfg.runner.resume = True
     ppo_runner, train_cfg = task_registry.make_alg_runner(env=env, name=args.task, args=args, train_cfg=train_cfg)
     policy = ppo_runner.get_inference_policy(device=env.device)
-    exported_policy_name = str(task_registry.loaded_policy_path.split('/')[-2]) + str(task_registry.loaded_policy_path.split('/')[-1])
+    # exported_policy_name = str(task_registry.loaded_policy_path.split('/')[-2]) + str(task_registry.loaded_policy_path.split('/')[-1])
+    run_dir = os.path.basename(os.path.dirname(task_registry.loaded_policy_path))
+    model_file = os.path.basename(task_registry.loaded_policy_path)
+    model_name_no_ext = os.path.splitext(model_file)[0]
+    exported_policy_name = f"{run_dir}_{model_name_no_ext}.jit"
     print('Loaded policy from: ', task_registry.loaded_policy_path)
     # export policy as a jit module (used to run it from C++)
     if EXPORT_POLICY:
