@@ -41,6 +41,9 @@ import time
 import matplotlib.pyplot as plt
 import shutil
 
+import sys
+import argparse
+
 RECORD_FRAMES = False
 MOVE_CAMERA = False
 
@@ -84,14 +87,15 @@ def play(args):
     camera_direction = np.array(env_cfg.viewer.lookat) - np.array(env_cfg.viewer.pos)
     img_idx = 0
 
-    log_root = os.path.join(LEGGED_GYM_ROOT_DIR, 'logs/rec_cam')
+    log_root = os.path.join(LEGGED_GYM_ROOT_DIR, 'logs/r2d_cam')
     try:
         os.mkdir(log_root)
     except:
         pass
-    log_folder = 'test' + str(len(os.listdir(log_root)) + 10 + 1)
     # this '10' is a shift in the filename, so you may change it and run multiple parallel ones without conflicts
-    last_log_folder = 'test' + str(len(os.listdir(log_root)) + 10)
+    shift = args.shift if hasattr(args, 'shift') and args.shift is not None else 10
+    log_folder = 'test' + str(len(os.listdir(log_root)) + shift + 1)
+    last_log_folder = 'test' + str(len(os.listdir(log_root)) + shift)
     last_success = os.path.isfile(os.path.join(log_root,last_log_folder,'label.pkl'))
     print("last recording succeed?",last_success)
     if not last_success:
@@ -134,4 +138,9 @@ def play(args):
 
 if __name__ == '__main__':
     args = get_args()
+
+    # arg about log and obstacle
+    parser = argparse.ArugumentParser()
+    parser.add_argument()
+
     play(args)

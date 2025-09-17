@@ -1,0 +1,13 @@
+{
+    "python-envs.defaultEnvManager": "ms-python.python:conda",
+    "python-envs.defaultPackageManager": "ms-python.python:conda",
+    "python-envs.pythonProjects": [],
+    "remote.extensionKind": {
+        "GitHub.coplilot": [
+            "ui"
+        ],
+        "GitHub.copilot-chat": [
+            "ui"
+        ]
+    }
+}
